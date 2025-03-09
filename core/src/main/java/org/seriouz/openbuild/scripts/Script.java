@@ -18,6 +18,7 @@ import org.luaj.vm2.lib.jse.JsePlatform;
 import org.seriouz.openbuild.Logger;
 import org.seriouz.openbuild.scripts.funcs.InputFunctions;
 import org.seriouz.openbuild.scripts.funcs.LogInfoFunction;
+import org.seriouz.openbuild.scripts.tables.FileSystem;
 import org.seriouz.openbuild.scripts.tables.StateCycleTable;
 import org.seriouz.openbuild.scripts.tables.TimerTable;
 
@@ -78,6 +79,8 @@ public class Script {
             }
         });
         globals.set("StateCycle", cycleTable);
+
+        globals.set("FileSystem", new FileSystem());
     }
 
     protected boolean hasEventFunc(String name) {

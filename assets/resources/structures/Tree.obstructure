@@ -1,0 +1,18 @@
+{
+    "Chance": 1,
+    "Blocks": [
+        { "Id": "Wood Log", "X": 0, "Y": 0 },
+        { "Id": "Wood Log", "X": 0, "Y": 1 },
+        { "Id": "Wood Log", "X": 0, "Y": 2 },
+
+        { "Id": "Leaves", "X": 0, "Y": 3 },
+        { "Id": "Leaves", "X": 1, "Y": 3 },
+        { "Id": "Leaves", "X": -1, "Y": 3 },
+        { "Id": "Leaves", "X": 2, "Y": 3 },
+        { "Id": "Leaves", "X": -2, "Y": 3 },
+
+        { "Id": "Leaves", "X": 0, "Y": 4 },
+        { "Id": "Leaves", "X": 1, "Y": 4 },
+        { "Id": "Leaves", "X": -1, "Y": 4 }
+    ]
+}

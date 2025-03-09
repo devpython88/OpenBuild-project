@@ -7,8 +7,9 @@
 
 host_block = "Soil Block"
 local cycle = StateCycle.ready("Soil Block", "Grass Block", "Stone Bricks")
+cycle.setLoop(false);
 
-local timer = Timer.ready(3.0, function()
+local timer = Timer.ready(1.0, function()
     cycle.cycle()
 end)
 

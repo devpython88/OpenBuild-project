@@ -1,0 +1,100 @@
+{
+    "Blocks": [
+        {
+            "X": 0,
+            "Y": 1,
+            "Id": "Cut Wood"
+        },
+        {
+            "X": 0,
+            "Y": 3,
+            "Id": "Cut Wood"
+        },
+        {
+            "X": 1,
+            "Y": 4,
+            "Id": "Cut Wood"
+        },
+        {
+            "X": 2,
+            "Y": 4,
+            "Id": "Cut Wood"
+        },
+        {
+            "X": 3,
+            "Y": 4,
+            "Id": "Cut Wood"
+        },
+        {
+            "X": 4,
+            "Y": 3,
+            "Id": "Cut Wood"
+        },
+        {
+            "X": 4,
+            "Y": 1,
+            "Id": "Cut Wood"
+        },
+        {
+            "X": 3,
+            "Y": 0,
+            "Id": "Cut Wood"
+        },
+        {
+            "X": 1,
+            "Y": 0,
+            "Id": "Cut Wood"
+        },
+        {
+            "X": 1,
+            "Y": 1,
+            "Id": "Plant"
+        },
+        {
+            "X": 3,
+            "Y": 1,
+            "Id": "Plant"
+        },
+        {
+            "X": 2,
+            "Y": 0,
+            "Id": "Door"
+        },
+        {
+            "X": 0,
+            "Y": 0,
+            "Id": "Wood Log"
+        },
+        {
+            "X": 0,
+            "Y": 4,
+            "Id": "Wood Log"
+        },
+        {
+            "X": 4,
+            "Y": 4,
+            "Id": "Wood Log"
+        },
+        {
+            "X": 4,
+            "Y": 0,
+            "Id": "Wood Log"
+        },
+        {
+            "X": 0,
+            "Y": 2,
+            "Id": "Glass"
+        },
+        {
+            "X": 4,
+            "Y": 2,
+            "Id": "Glass"
+        },
+        {
+            "X": 1,
+            "Y": 3,
+            "Id": "Bed"
+        }
+    ],
+    "Chance": 512
+}

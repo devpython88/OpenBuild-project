@@ -1,0 +1,31 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
+
+repositories {
+  mavenCentral()
+  maven { url "https://jitpack.io" }  // Add this line
+}
+
+dependencies {
+  // Existing dependencies
+  api "com.badlogicgames.box2dlights:box2dlights:$box2dlightsVersion"
+  api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+  // Add org.json (for JSON processing)
+  implementation "org.json:json:20210307"
+
+  // Add LuaJ (for Lua scripting)
+  implementation "org.luaj:luaj-jse:3.0.1"
+
+  implementation "com.github.xpenatan.gdx-teavm:backend-teavm:$gdxTeaVMVersion"
+  implementation "com.github.xpenatan.gdx-teavm:gdx-freetype-teavm:$gdxTeaVMVersion"
+
+  // Add gdx-freetype (Already included, but keeping it for reference)
+  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+
+  if (enableGraalNative == 'true') {
+    implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
+  }
+}

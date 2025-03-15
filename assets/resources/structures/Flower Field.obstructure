@@ -1,0 +1,13 @@
+{
+  "Chance": 15,
+  "Blocks": [
+    { "Id": "Dedris Flower", "X": "0:1:2:3:4:5:6:7", "Y": 0 },
+    { "Id": "Dedris Flower", "X": "0:1:2:3:4:5:6:7", "Y": 1 },
+    { "Id": "Dedris Flower", "X": "0:1:2:3:4:5:6:7", "Y": 2 },
+    { "Id": "Dedris Flower", "X": "0:1:2:3:4:5:6:7", "Y": 3 },
+    { "Id": "Dedris Flower", "X": "0:1:2:3:4:5:6:7", "Y": 4 },
+    { "Id": "Dedris Flower", "X": "0:1:2:3:4:5:6:7", "Y": 5 },
+    { "Id": "Dedris Flower", "X": "0:1:2:3:4:5:6:7", "Y": 6 },
+    { "Id": "Dedris Flower", "X": "0:1:2:3:4:5:6:7", "Y": 7 }
+  ]
+}

@@ -1,0 +1,17 @@
+[
+    {
+        "X": 53,
+        "Y": 62,
+        "Data": "data/entities/Sheep.obentity"
+    },
+    {
+        "X": 34,
+        "Y": 46,
+        "Data": "data/entities/Pig.obentity"
+    },
+    {
+        "X": 35,
+        "Y": 48,
+        "Data": "data/entities/Cow.obentity"
+    }
+]

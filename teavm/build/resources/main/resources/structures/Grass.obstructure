@@ -1,0 +1,6 @@
+{
+  "Chance": 1,
+  "Blocks": [
+    {"Id": "Grass", "X": 0, "Y": 0}
+  ]
+}

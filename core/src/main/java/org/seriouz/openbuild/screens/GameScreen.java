@@ -35,6 +35,7 @@ import org.seriouz.openbuild.scripts.ScriptManager;
 import org.seriouz.openbuild.user.Player;
 import org.seriouz.openbuild.user.WorldManager;
 import org.seriouz.openbuild.utilities.BlockMerger;
+import org.seriouz.openbuild.utilities.Commands;
 import org.seriouz.openbuild.utilities.Logger;
 
 import java.io.File;
@@ -158,7 +159,7 @@ public class GameScreen
 
     private void initializeStructures() {
         StructureGenerator globalStructureGenerator = new StructureGenerator(this.blockManager);
-        globalStructureGenerator.generateAllStructures(400, 600, 128, this.player.x, this.player.y, this.builder);
+        globalStructureGenerator.generateAllStructures(400, 600, 256, this.player.x, this.player.y, this.builder);
 
 
         this.realtimeStructureGenerator = new RealtimeStructureGenerator(globalStructureGenerator, this.player);
@@ -289,7 +290,7 @@ public class GameScreen
 
         for (Script script : scripts) script.update();
         this.playerTorch.setPosition((float) (this.player.x + this.player.getCenterX()), (float) (this.player.y + this.player.getCenterY()));
-        if (realtimeStructureGenerator != null) this.realtimeStructureGenerator.update(400, 600, 96, this.builder);
+        if (realtimeStructureGenerator != null) this.realtimeStructureGenerator.update(400, 600, 64, this.builder);
     }
 
     private void handleMovement() {
@@ -449,7 +450,7 @@ public class GameScreen
     public void showCommandDialog() {
         this.aDialogShown = true;
         SelectBox<String> commandSelector = new SelectBox<>(mainSkin);
-        commandSelector.setItems("go", "summon");
+        commandSelector.setItems(Commands.GLOBAL);
 
         final TextField commandArgs = new TextField("", this.mainSkin);
         stage.setKeyboardFocus(commandArgs);

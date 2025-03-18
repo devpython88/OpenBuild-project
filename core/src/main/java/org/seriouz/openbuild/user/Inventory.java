@@ -10,6 +10,10 @@ import org.seriouz.openbuild.managers.BlockPathManager;
 import java.util.ArrayList;
 
 public class Inventory {
+    public ArrayList<InventorySlot> getSlots() {
+        return slots;
+    }
+
     private ArrayList<InventorySlot> slots;
     private Player host;
     private Texture emptySlotTexture;
@@ -86,6 +90,11 @@ public class Inventory {
             slot = 3;
             updateSlotInformation();
         }
+    }
+
+    public void setSlot(int i, InventorySlot slot){
+        slots.set(i, slot);
+        updateSlotInformation();
     }
 
     private void updateSlotInformation() {

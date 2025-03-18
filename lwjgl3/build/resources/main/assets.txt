@@ -9,6 +9,10 @@ data/saves/gfdgswgd/blocks.json
 data/saves/gfdgswgd/entities.json
 data/saves/gfdgswgd/environment.json
 data/saves/gfdgswgd/player.json
+data/saves/test/blocks.json
+data/saves/test/entities.json
+data/saves/test/environment.json
+data/saves/test/player.json
 data/scripts/test-ui.lua
 hs_err_pid7568.log
 hs_err_pid8420.log

@@ -60,6 +60,12 @@ public class WorldManager {
         playerJson.put("Y", this.player.y);
         playerJson.put("Torch lit", builder.torchLit);
 
+        JSONArray slots = new JSONArray();
+        for (InventorySlot slot : player.getInventory().getSlots()){
+            slots.put(slot.itemName);
+        }
+
+        playerJson.put("Inventory", slots);
 
         JSONArray unlocked = new JSONArray();
         for (String path : blockManager.getBlockPathManager().blockPaths){
@@ -156,6 +162,14 @@ public class WorldManager {
         this.player.y = playerJson.getInt("Y");
         this.player.skinPath = playerJson.getString("Skin Id");
         this.player.skin = new Texture("resources/player/" + this.player.skinPath);
+
+        if (playerJson.has("Inventory")) {
+            JSONArray slots = playerJson.getJSONArray("Inventory");
+            for (i = 0; i < slots.length(); i++){
+                String slotItem = slots.getString(i);
+                player.getInventory().setSlot(i, new InventorySlot(blockManager.getBlockPathManager().get(slotItem), slotItem));
+            }
+        }
 
         if (playerJson.has("Unlocked")) { // maintain compatiblity
             JSONArray unlocked = playerJson.getJSONArray("Unlocked");

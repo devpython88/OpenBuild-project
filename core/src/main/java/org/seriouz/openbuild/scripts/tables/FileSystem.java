@@ -4,6 +4,7 @@ import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
+import org.seriouz.openbuild.scripts.funcs.FunctionBuilder;
 import org.seriouz.openbuild.utilities.Logger;
 
 import java.io.File;
@@ -30,6 +31,8 @@ public class FileSystem extends LuaTable {
                 return NIL;
             }
         });
+
+        set("exists", FunctionBuilder.oneArg(val -> LuaValue.valueOf(Files.exists(Path.of(getTweakedPath(val))))));
 
         set("listFilesFrom", new OneArgFunction() {
             @Override

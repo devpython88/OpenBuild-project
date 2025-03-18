@@ -1,0 +1,13 @@
+{
+    "Unlocked": ["+Torch Lamp"],
+    "Torch lit": false,
+    "X": 656,
+    "Y": 304,
+    "Skin Id": "player.png",
+    "Inventory": [
+        "Broken Stone Bricks",
+        "Dedris Flower",
+        "Grass Block",
+        "Cut Wood"
+    ]
+}

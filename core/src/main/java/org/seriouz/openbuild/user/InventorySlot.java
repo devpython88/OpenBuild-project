@@ -20,6 +20,7 @@ public class InventorySlot {
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }
+    
 
     String itemName;
 

@@ -55,6 +55,7 @@ public class Inventory {
                 new TextureRegion(slotTexture, 16, 16),
                 x, sY + 4, w, h
             );
+
             return;
         }
 

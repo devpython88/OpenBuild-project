@@ -10,8 +10,6 @@ import org.seriouz.openbuild.utilities.Logger;
 
 public class DoorImplementer {
     public static void implement(Block host, BlockManager blockManager, String spriteOpen, String spriteClosed) {
-        Logger.info(spriteClosed);
-        Logger.info(spriteOpen);
         if (host.imageName.contains(spriteClosed)) {
             host.imageName = spriteOpen;
             host.image = blockManager.getBlockPathManager().get(BlockPathManager.getName(spriteOpen));

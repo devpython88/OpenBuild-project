@@ -2,6 +2,7 @@ package org.seriouz.openbuild.screens;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import org.seriouz.openbuild.Block;
 import org.seriouz.openbuild.CommandExecutioner;
 import org.seriouz.openbuild.builders.BlockParameterBuilder;
+import org.seriouz.openbuild.builders.PlayerParamBuilder;
 import org.seriouz.openbuild.builders.ScriptBuilder;
 import org.seriouz.openbuild.builders.WorldSaveParameterBuilder;
 import org.seriouz.openbuild.dialogs.PauseMenuDialog;
@@ -33,6 +35,7 @@ import org.seriouz.openbuild.scripts.ScriptManager;
 import org.seriouz.openbuild.user.Player;
 import org.seriouz.openbuild.user.WorldManager;
 import org.seriouz.openbuild.utilities.BlockMerger;
+import org.seriouz.openbuild.utilities.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -66,6 +69,7 @@ public class GameScreen
     private boolean aDialogShown;
     private final List<Script> scripts;
     public ScriptBuilder scriptParamBuilder;
+    private PlayerParamBuilder playerParamBuilder;
 
     public GameScreen() {
         scripts = new ArrayList<>();
@@ -183,12 +187,15 @@ public class GameScreen
 
     private void intializeUser() {
         this.batch = new SpriteBatch();
-        this.player = new Player(this.round(this.getScreenCenterX(), 16), this.round(this.getScreenCenterY(), 16), "player.png");
+        playerParamBuilder = new PlayerParamBuilder(blockManager);
+        this.player = new Player(this.round(this.getScreenCenterX(), 16), this.round(this.getScreenCenterY(), 16), "player.png", playerParamBuilder);
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, (float) Gdx.graphics.getWidth(), (float) Gdx.graphics.getHeight());
         this.camera.zoom = 0.5f;
         this.uiCamera = new OrthographicCamera();
         this.uiCamera.setToOrtho(false, (float) Gdx.graphics.getWidth(), (float) Gdx.graphics.getHeight());
+
+        updateCurrentInventorySlot();
     }
 
     public void render() {
@@ -223,9 +230,19 @@ public class GameScreen
     private void updateMainStuff() {
         this.update();
         this.player.handleBlocks(this.blockManager, this.builder);
-        this.blockManager.updateCurrentSelected();
         this.camera.update();
         this.blockManager.handle();
+        this.player.getInventory().handle();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB))
+            updateCurrentInventorySlot();
+    }
+
+    private void updateCurrentInventorySlot() {
+        blockManager.currentSelected = player.getInventory().getCurrentSlot().getItemName();
+        blockManager.updateCurrentSelected();
+        player.getInventory().getCurrentSlot().setItem(blockManager.getBlockPathManager().get(blockManager.currentSelected));
+        player.getInventory().getCurrentSlot().setItemName(blockManager.currentSelected);
     }
 
     private void renderMainStuff() {
@@ -253,7 +270,7 @@ public class GameScreen
 
         this.batch.draw(this.panelTexture, 0.0f, 0.0f, (float) Gdx.graphics.getWidth(), 88.0f);
 
-        this.batch.draw(new TextureRegion(currentSelectedBlockTexture, 16, 16), 20.0f, 15.0f, 48.0f, 48.0f);
+        player.getInventory().draw(batch, 20, 20, 48, 48);
     }
 
     private void update() {
@@ -466,8 +483,9 @@ public class GameScreen
                 if (!(Boolean) object) {
                     return;
                 }
+
                 GameScreen.this.blockManager.selectedIndex = GameScreen.this.blockManager.getBlockPathManager().blockPaths.indexOf(selectBox.getSelected());
-                GameScreen.this.blockManager.updateCurrentSelected();
+                updateCurrentInventorySlot();
             }
         };
         dialog.getContentTable().add((Actor) selectBox).pad(10.0f);

@@ -66,7 +66,6 @@ public class Block {
             this.imageName = this.imageName + ".png";
         }
 
-        Logger.info(imageName);
         if (this.isDoor(this.imageName)) {
             this.doorProperties = new DoorProperties(this.imageName.replace("blocks/", "blocks/_").replace(".png", " Open.png"),
                 this.imageName);

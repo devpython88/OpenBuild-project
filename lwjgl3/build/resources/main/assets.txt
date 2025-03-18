@@ -9,10 +9,13 @@ data/saves/gfdgswgd/blocks.json
 data/saves/gfdgswgd/entities.json
 data/saves/gfdgswgd/environment.json
 data/saves/gfdgswgd/player.json
+data/scripts/test-ui.lua
 hs_err_pid7568.log
 hs_err_pid8420.log
+resources/Chain.png
 resources/UI/Button Hover.png
 resources/UI/Button Normal.png
+resources/UI/Empty Slot.png
 resources/UI/font-export.fnt
 resources/UI/font-title-export.fnt
 resources/UI/neutralizer-skin.atlas

@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import org.seriouz.openbuild.builders.BlockParameterBuilder;
+import org.seriouz.openbuild.builders.PlayerParamBuilder;
 import org.seriouz.openbuild.managers.BlockManager;
 import org.seriouz.openbuild.utilities.Animator;
 import org.seriouz.openbuild.utilities.Pointer;
@@ -29,12 +30,20 @@ public class Player {
     public Animator animator;
     private final float DELAY_BETWEEN_STEPS;
     private float timerForSteps;
+    protected PlayerParamBuilder paramBuilder;
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    private Inventory inventory;
 
     public Player() {
         this.DELAY_BETWEEN_STEPS = 1.0f;
     }
 
-    public Player(int x, int y, String skinPath) {
+    public Player(int x, int y, String skinPath, PlayerParamBuilder paramBuilder) {
+        this.paramBuilder = paramBuilder;
         this.x = x;
         this.y = y;
         this.skinPath = skinPath;
@@ -42,6 +51,7 @@ public class Player {
         this.animator = new Animator("resources/player/" + skinPath, 4, 2, 1.0f);
         this.DELAY_BETWEEN_STEPS = 1.0f;
         this.timerForSteps = 0.0f;
+        this.inventory = new Inventory(this);
     }
 
     public int getCenterX() {
@@ -116,7 +126,7 @@ public class Player {
 
     public void handleBlocks(BlockManager blockManager, BlockParameterBuilder builder) {
         if (Gdx.input.isKeyJustPressed(41) && !blockManager.blockExists(this.x, this.y)) {
-            blockManager.createBlock(this.x, this.y, builder);
+            if (!inventory.getCurrentSlot().itemName.equals("Empty Slot")) blockManager.createBlock(this.x, this.y, builder);
         }
 
         if (Gdx.input.isKeyPressed(59)) {

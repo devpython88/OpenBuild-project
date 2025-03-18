@@ -7,6 +7,8 @@
 package org.seriouz.openbuild.managers;
 
 import com.badlogic.gdx.graphics.Texture;
+import org.seriouz.openbuild.utilities.Logger;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +27,10 @@ public class BlockPathManager {
         File blocksDir = new File("./resources/blocks");
         assert (blocksDir.exists());
         File[] files = blocksDir.listFiles();
+
+
+        ArrayList<String> exclusives = new ArrayList<>();
+
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory() || !file.getName().endsWith(".png")) continue;
@@ -32,9 +38,18 @@ public class BlockPathManager {
                 String blockName = file.getName().replace(".png", "");
                 this.blockMap.put(blockName, texture);
                 this.blockPaths.add(blockName);
+                if (blockName.startsWith("-")) exclusives.add(blockName);
             }
         }
+
+        Logger.info(""+exclusives.size());
+
+        if (exclusives.size() < 4){
+            dispose();
+            throw new RuntimeException("Fatal error: One or more exclusives are missing or renamed.");
+        }
     }
+
 
     public Texture get(String name){
         return blockMap.get(name);

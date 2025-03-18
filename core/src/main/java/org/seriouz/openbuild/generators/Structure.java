@@ -67,6 +67,7 @@ public class Structure {
                 }
 
                 String id = object.getString("Id");
+
                 this.blockManager.createBlock(x += this.centerX, y += this.centerY, this.blockManager.getBlockPathManager().get(id), id, builder);
             }
         }

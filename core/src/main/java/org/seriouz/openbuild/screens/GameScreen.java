@@ -267,8 +267,6 @@ public class GameScreen
     }
 
     private void handleCurrentSelectedTexture() {
-        Texture currentSelectedBlockTexture = this.blockManager.getBlockPathManager().get(this.blockManager.currentSelected);
-
         this.batch.draw(this.panelTexture, 0.0f, 0.0f, (float) Gdx.graphics.getWidth(), 88.0f);
 
         player.getInventory().draw(batch, 20, 20, 48, 48);
@@ -300,6 +298,7 @@ public class GameScreen
     }
 
     private void handleTorchSFX() {
+
         if (Gdx.input.isKeyJustPressed(34) && !this.aDialogShown) {
             this.playerTorch.setActive(!this.playerTorch.isActive());
             if (this.playerTorch.isActive()) {

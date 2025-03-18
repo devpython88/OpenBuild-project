@@ -13,6 +13,10 @@ data/saves/test/blocks.json
 data/saves/test/entities.json
 data/saves/test/environment.json
 data/saves/test/player.json
+data/saves/village house near spawn/blocks.json
+data/saves/village house near spawn/entities.json
+data/saves/village house near spawn/environment.json
+data/saves/village house near spawn/player.json
 data/scripts/test-ui.lua
 hs_err_pid7568.log
 hs_err_pid8420.log

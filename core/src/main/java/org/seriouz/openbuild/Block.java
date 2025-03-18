@@ -10,11 +10,15 @@
 package org.seriouz.openbuild;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import org.seriouz.openbuild.builders.BlockParameterBuilder;
 import org.seriouz.openbuild.builders.ScriptBuilder;
 import org.seriouz.openbuild.implementers.BombImplementer;
@@ -157,11 +161,8 @@ public class Block {
     }
 
     public void interact(BlockManager blockManager, SoundManager soundManager) {
+        if (script != null) script.interacted();
         if (this.imageName.contains("Door")) {
-            if (this.script != null) {
-                this.script.interacted();
-                return;
-            }
             if (this.imageName.equals(this.doorProperties.opened)) {
                 soundManager.play(this.doorProperties.opened.replace("./resources/blocks/", "").replace(".png", ""));
             } else {
@@ -170,13 +171,7 @@ public class Block {
             DoorImplementer.implement(this, blockManager, this.doorProperties.opened, this.doorProperties.closed);
         }
         if (this.imageName.contains("Dynamite")) {
-            if (this.script != null) {
-                this.script.interacted();
-                return;
-            }
             BombImplementer.implement(blockManager, this, soundManager);
-        } else if (this.script != null) {
-            this.script.interacted();
         }
     }
 
@@ -185,8 +180,10 @@ public class Block {
     }
 
     public void handle(BlockManager blockManager, int handlerX, int handlerY, SoundManager soundManager) {
-        if (Gdx.input.isKeyJustPressed(39) && this.isNear(handlerX, handlerY)) {
-            this.interact(blockManager, soundManager);
+        Circle interactionCircle = new Circle(handlerX, handlerY, 40);
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.K) && Intersector.overlaps(interactionCircle, new Rectangle(x, y, 16, 16))){
+            interact(blockManager, soundManager);
         }
     }
 

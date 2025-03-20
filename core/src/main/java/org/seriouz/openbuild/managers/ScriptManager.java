@@ -7,6 +7,9 @@
 package org.seriouz.openbuild.scripts;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,13 +31,12 @@ public class ScriptManager {
         this.scriptPaths = new ArrayList<String>();
         File dir = new File(scriptLookupDir);
         assert (dir.exists());
-        File[] files = dir.listFiles();
-        if (files == null) {
-            return;
-        }
-        for (File file : files) {
-            this.scriptPaths.add(file.getAbsolutePath());
-        }
+
+        try {
+            Files.walk(Path.of(dir.toURI())).forEach(e -> scriptPaths.add(e.toAbsolutePath().toString()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        };
     }
 
     public CompletableFuture<BlockScript> getBlockScript(String name, Block block, BlockManager blockManager, ScriptBuilder builder) {

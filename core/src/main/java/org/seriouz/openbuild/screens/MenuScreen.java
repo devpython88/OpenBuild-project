@@ -30,6 +30,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -60,7 +61,7 @@ implements Screen {
         this.playButton.addListener(new ClickListener(){
 
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen((Screen)new GameScreen());
+                game.setScreen(new GameScreen(game));
             }
         });
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("resources/fonts/default.ttf"));
@@ -81,7 +82,12 @@ implements Screen {
         this.batch.begin();
         this.stage.act(v);
         this.stage.draw();
-        this.bitmapFont.draw(this.batch, "Open Build", this.playButton.getX() - 40.0f, this.playButton.getY() + 100.0f);
+
+        GlyphLayout layout = new GlyphLayout(bitmapFont, "Open Build");
+        int x = (Gdx.graphics.getWidth() / 2) - ((int) layout.width / 2);
+        int y = (Gdx.graphics.getHeight() / 2) - ((int) layout.height / 2);
+
+        this.bitmapFont.draw(this.batch, "Open Build", x, y + 100);
         this.batch.end();
     }
 

@@ -9,6 +9,10 @@ data/saves/gfdgswgd/blocks.json
 data/saves/gfdgswgd/entities.json
 data/saves/gfdgswgd/environment.json
 data/saves/gfdgswgd/player.json
+data/saves/my house/blocks.json
+data/saves/my house/entities.json
+data/saves/my house/environment.json
+data/saves/my house/player.json
 data/saves/test/blocks.json
 data/saves/test/entities.json
 data/saves/test/environment.json
@@ -17,7 +21,7 @@ data/saves/village house near spawn/blocks.json
 data/saves/village house near spawn/entities.json
 data/saves/village house near spawn/environment.json
 data/saves/village house near spawn/player.json
-data/scripts/test-ui.lua
+data/scripts/GAME/WINDOW.lua
 hs_err_pid7568.log
 hs_err_pid8420.log
 resources/Chain.png
@@ -128,6 +132,8 @@ resources/audio/Sheep bahs.wav
 resources/audio/Tied Dynamites.wav
 resources/audio/Torch Blown.wav
 resources/audio/Torch Lit.wav
+resources/audio/Window Close.wav
+resources/audio/Window Open.wav
 resources/audio/_Door Open.wav
 resources/audio/_Iron Door Open.wav
 resources/blocks/-Dedris Ash.png
@@ -155,11 +161,14 @@ resources/blocks/Plant.png
 resources/blocks/Soil Block.png
 resources/blocks/Stone Bricks.png
 resources/blocks/Tied Dynamites.png
+resources/blocks/Toilette.png
 resources/blocks/Water.png
+resources/blocks/Window.png
 resources/blocks/Wood Log.png
 resources/blocks/_Door Open.png
 resources/blocks/_Iron Door Open.png
 resources/blocks/_Switch Toggled.png
+resources/blocks/_Window Open.png
 resources/entities/Cow.png
 resources/entities/Pig.png
 resources/entities/Sheep.png

@@ -51,6 +51,7 @@ public class Structure {
             JSONArray blocks = this.structureJson.getJSONArray("Blocks");
             for (int i = 0; i < blocks.length(); ++i) {
                 JSONObject object = blocks.getJSONObject(i);
+                String id = object.getString("Id");
 
                 int x, y;
 
@@ -66,9 +67,8 @@ public class Structure {
                     y = object.getInt("Y") * 16;
                 }
 
-                String id = object.getString("Id");
 
-                    this.blockManager.createBlock(x += this.centerX, y += this.centerY, this.blockManager.getBlockPathManager().get(id), id, builder);
+                this.blockManager.createBlock(x += this.centerX, y += this.centerY, this.blockManager.getBlockPathManager().get(id), id, builder);
             }
         }
     }

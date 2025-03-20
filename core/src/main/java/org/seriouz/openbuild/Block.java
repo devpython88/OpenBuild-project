@@ -21,6 +21,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import org.seriouz.openbuild.builders.BlockParameterBuilder;
 import org.seriouz.openbuild.builders.ScriptBuilder;
+import org.seriouz.openbuild.implementers.BedImplementer;
 import org.seriouz.openbuild.implementers.BombImplementer;
 import org.seriouz.openbuild.implementers.DoorImplementer;
 import org.seriouz.openbuild.managers.BlockManager;
@@ -173,6 +174,11 @@ public class Block {
         if (this.imageName.contains("Dynamite")) {
             BombImplementer.implement(blockManager, this, soundManager);
         }
+        if (this.imageName.contains("Bed")){
+            if (builder.sunlight.v > 0.5f) return;
+            BedImplementer.implement(this, builder.screen, builder.game);
+            builder.sunlight.v = new Random().nextFloat(0.822f, 1f);
+        }
     }
 
     public boolean isNear(int x2, int y2) {
@@ -180,7 +186,7 @@ public class Block {
     }
 
     public void handle(BlockManager blockManager, int handlerX, int handlerY, SoundManager soundManager) {
-        Circle interactionCircle = new Circle(handlerX, handlerY, 40);
+        Circle interactionCircle = new Circle(handlerX, handlerY, 20);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.K) && Intersector.overlaps(interactionCircle, new Rectangle(x, y, 16, 16))){
             interact(blockManager, soundManager);

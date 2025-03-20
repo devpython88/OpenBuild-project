@@ -1,6 +1,6 @@
 /*
  * Decompiled with CFR 0.152.
- * 
+ *
  * Could not load the following classes:
  *  com.badlogic.gdx.Gdx
  *  com.badlogic.gdx.audio.Sound
@@ -9,6 +9,8 @@ package org.seriouz.openbuild.managers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import org.seriouz.openbuild.utilities.Logger;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +31,7 @@ public class SoundManager {
         }
         for (File file : files) {
             if (!file.getName().endsWith(".wav")) continue;
+            Logger.info(file.getName());
             this.soundHashMap.put(file.getName(), Gdx.audio.newSound(Gdx.files.absolute(file.getAbsolutePath())));
         }
     }

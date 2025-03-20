@@ -17,6 +17,7 @@ import org.luaj.vm2.lib.VarArgFunction;
 import org.luaj.vm2.lib.jse.JsePlatform;
 import org.seriouz.openbuild.builders.ScriptBuilder;
 import org.seriouz.openbuild.scripts.funcs.FunctionBuilder;
+import org.seriouz.openbuild.scripts.funcs.MiscFunctions;
 import org.seriouz.openbuild.scripts.tables.ui.ButtonTable;
 import org.seriouz.openbuild.scripts.tables.ui.TextViewTable;
 import org.seriouz.openbuild.utilities.Logger;
@@ -56,6 +57,7 @@ public class Script {
         this.globals.set("logInfo", new LogInfoFunction());
         this.globals.set("isKeyHeld", new InputFunctions.GetKeyHeld());
         this.globals.set("isKeyPressed", new InputFunctions.GetKeyPressed());
+        this.globals.set("playSound", MiscFunctions.playSound(builder.soundManager));
 
         // tables
 
@@ -118,7 +120,7 @@ public class Script {
             public Varargs invoke(Varargs varargs) {
                 List<String> states = new ArrayList<>();
 
-                for (int i = 0; i <= varargs.narg(); i++){
+                for (int i = 1; i <= varargs.narg(); i++){
                     states.add(varargs.arg(i).tojstring());
                 }
 

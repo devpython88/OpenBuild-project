@@ -1,0 +1,17 @@
+{
+    "Unlocked": [
+        "+Torch Lamp",
+        "+Dedris Ash",
+        "+Dedris Core"
+    ],
+    "Torch lit": false,
+    "X": 384,
+    "Y": 112,
+    "Skin Id": "player.png",
+    "Inventory": [
+        "+Dedris Core",
+        "Stone Bricks",
+        "+Torch Lamp",
+        "Door"
+    ]
+}

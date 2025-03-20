@@ -1,6 +1,6 @@
 /*
  * Decompiled with CFR 0.152.
- * 
+ *
  * Could not load the following classes:
  *  com.badlogic.gdx.ApplicationListener
  *  com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
@@ -30,7 +30,7 @@ public class Lwjgl3Launcher {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
         configuration.setTitle("Open Build");
         configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate + 1);
-        configuration.setWindowedMode(1280, 720);
+        configuration.setWindowedMode(1024, 720);
         configuration.setWindowIcon(new String[]{"libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png"});
         configuration.setResizable(false);
         return configuration;

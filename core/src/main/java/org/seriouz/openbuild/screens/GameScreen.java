@@ -17,6 +17,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import org.seriouz.openbuild.Block;
 import org.seriouz.openbuild.CommandExecutioner;
@@ -72,14 +75,14 @@ public class GameScreen
     public ScriptBuilder scriptParamBuilder;
     private PlayerParamBuilder playerParamBuilder;
 
-    public GameScreen() {
+    public GameScreen(Game game) {
         scripts = new ArrayList<>();
 
         initializeWorldLighting();
         intializeStageAndSkin();
-        loadGlobalScripts();
         initializeSounds();
-        initializeBlockManager();
+        loadGlobalScripts();
+        initializeBlockManager(game);
         intializeUser();
 
         this.panelTexture = new Texture("./resources/UI/panel.png");
@@ -127,7 +130,7 @@ public class GameScreen
     private void initializeWorldLighting() {
         this.lightIntensity = new BlockParameterBuilder.Sunlight(1f);
 
-        this.lightModifier = 0.0001f;
+        this.lightModifier = 0.00005f;
 
         this.rayHandler.setAmbientLight(this.lightIntensity.v);
     }
@@ -139,11 +142,12 @@ public class GameScreen
     private void initializeTextRenderer() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("resources/fonts/default.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 18;
+        parameter.size = 24;
         parameter.color = Color.BLACK;
 
 
         this.fontRenderer = generator.generateFont(parameter);
+
 
 
         generator.dispose();
@@ -166,9 +170,14 @@ public class GameScreen
     }
 
     private void loadGlobalScripts() {
-        scriptParamBuilder = new ScriptBuilder(mainSkin, stage);
+        scriptParamBuilder = new ScriptBuilder(mainSkin, stage, soundManager);
 
-        for (String scriptPath : this.scriptManager.scriptPaths) {
+        loadScriptsFrom(scriptManager.scriptPaths);
+    }
+
+    private void loadScriptsFrom(List<String> paths) {
+        for (String scriptPath : paths) {
+
             Script script = new Script(scriptPath, scriptParamBuilder);
             if (script.globals.get("host_block").isstring()) continue;
             script.scriptLoaded();
@@ -176,9 +185,9 @@ public class GameScreen
         }
     }
 
-    private void initializeBlockManager() {
+    private void initializeBlockManager(Game game) {
         this.blockManager = new BlockManager();
-        this.builder = new BlockParameterBuilder(this.rayHandler, this.blockManager, this.scriptManager, scriptParamBuilder, lightIntensity, soundManager);
+        this.builder = new BlockParameterBuilder(rayHandler, blockManager, scriptManager, scriptParamBuilder, soundManager, lightIntensity, this, game);
     }
 
     private void intializeStageAndSkin() {
@@ -348,6 +357,14 @@ public class GameScreen
             this.nightAmbience.stop();
             this.dayAmbience.play();
         }
+
+        Color color = fontRenderer.getColor();
+        color.r -= lightModifier;
+        color.g -= lightModifier;
+        color.b -= lightModifier;
+
+        fontRenderer.setColor(color);
+
         this.lightIntensity.v -= this.lightModifier;
         this.rayHandler.setAmbientLight(this.lightIntensity.v);
     }
@@ -476,6 +493,18 @@ public class GameScreen
         this.aDialogShown = true;
         SelectBox<String> selectBox = new SelectBox<>(this.mainSkin);
         selectBox.setItems(this.blockManager.getBlockPathManager().getPathsSafe().toArray(new String[0]));
+        Image imagePreviewWidget = new Image(new TextureRegionDrawable(blockManager.getBlockPathManager().get(selectBox.getSelected())));
+        imagePreviewWidget.setSize(48, 48);
+        imagePreviewWidget.setScaling(Scaling.fit);
+
+        selectBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                imagePreviewWidget.setDrawable(new TextureRegionDrawable(blockManager.getBlockPathManager().get(selectBox.getSelected())));
+            }
+        });
+
+
         Dialog dialog = new Dialog("Select Block", this.mainSkin) {
 
             protected void result(Object object) {
@@ -488,9 +517,14 @@ public class GameScreen
                 updateCurrentInventorySlot();
             }
         };
-        dialog.getContentTable().add((Actor) selectBox).pad(10.0f);
+
+        dialog.getContentTable().add((Actor) selectBox).pad(2.5f);
+        dialog.getContentTable().row();
+        dialog.getContentTable().add(imagePreviewWidget).size(48, 48);
+
         dialog.button("Select", true);
         dialog.button("Cancel", false);
+
         dialog.show(this.stage);
     }
 

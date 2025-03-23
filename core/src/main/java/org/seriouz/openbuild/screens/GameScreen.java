@@ -15,9 +15,11 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -491,38 +493,50 @@ public class GameScreen
 
     public void blockSelectDialog() {
         this.aDialogShown = true;
-        SelectBox<String> selectBox = new SelectBox<>(this.mainSkin);
-        selectBox.setItems(this.blockManager.getBlockPathManager().getPathsSafe().toArray(new String[0]));
-        Image imagePreviewWidget = new Image(new TextureRegionDrawable(blockManager.getBlockPathManager().get(selectBox.getSelected())));
-        imagePreviewWidget.setSize(48, 48);
-        imagePreviewWidget.setScaling(Scaling.fit);
+        Dialog dialog = new Dialog("Select Block", this.mainSkin){@Override protected void result(Object object) { aDialogShown = false; }};
 
-        selectBox.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                imagePreviewWidget.setDrawable(new TextureRegionDrawable(blockManager.getBlockPathManager().get(selectBox.getSelected())));
-            }
-        });
+        /* SELECT BOX TABLE */
+        Table selectBlockTable = new Table();
 
+        int MAX_COLUMN = 4;
+        int i = 0;
 
-        Dialog dialog = new Dialog("Select Block", this.mainSkin) {
-
-            protected void result(Object object) {
-                GameScreen.this.aDialogShown = false;
-                if (!(Boolean) object) {
-                    return;
+            // Load block images
+        for (String path : blockManager.getBlockPathManager().getPathsSafe()){
+            Image image = new Image(new TextureRegion(blockManager.getBlockPathManager().get(path), 16, 16));
+            image.setSize(48, 48);
+            image.setScaling(Scaling.fit);
+            image.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    GameScreen.this.blockManager.selectedIndex = GameScreen.this.blockManager.getBlockPathManager().blockPaths.indexOf(path);
+                    updateCurrentInventorySlot();
+                    dialog.hide();
+                    aDialogShown = false;
                 }
+            });
 
-                GameScreen.this.blockManager.selectedIndex = GameScreen.this.blockManager.getBlockPathManager().blockPaths.indexOf(selectBox.getSelected());
-                updateCurrentInventorySlot();
+            if (i >= MAX_COLUMN){
+                i = 0;
+                selectBlockTable.row();
             }
-        };
 
-        dialog.getContentTable().add((Actor) selectBox).pad(2.5f);
-        dialog.getContentTable().row();
-        dialog.getContentTable().add(imagePreviewWidget).size(48, 48);
+            selectBlockTable.add(image).pad(10).size(48, 48);
+            i++;
+        }
 
-        dialog.button("Select", true);
+        selectBlockTable.pack();
+
+        ScrollPane selectTableScroll = new ScrollPane(selectBlockTable);
+
+        selectTableScroll.setScrollingDisabled(true, false);
+        selectTableScroll.setFadeScrollBars(false);
+
+        /* *********************************** */
+
+
+        dialog.setSize(400, 300);
+        dialog.getContentTable().add(selectTableScroll).size(300, 200);
         dialog.button("Cancel", false);
 
         dialog.show(this.stage);
@@ -551,9 +565,9 @@ public class GameScreen
         slot3.setItems(items.toArray(new String[0]));
         slot3.setSelected("--");
 
-        mergeBlockTable.add(slot1).pad(10);
-        mergeBlockTable.add(slot2).pad(10);
-        mergeBlockTable.add(slot3).pad(10);
+        mergeBlockTable.add(slot1).pad(10).width(200);
+        mergeBlockTable.add(slot2).pad(10).width(200);
+        mergeBlockTable.add(slot3).pad(10).width(200);
 
         // Dialog
         Dialog dialog = new Dialog("Merge Menu", mainSkin) {

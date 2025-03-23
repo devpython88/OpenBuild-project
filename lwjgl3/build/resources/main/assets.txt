@@ -169,6 +169,8 @@ resources/blocks/_Door Open.png
 resources/blocks/_Iron Door Open.png
 resources/blocks/_Switch Toggled.png
 resources/blocks/_Window Open.png
+resources/blocks/_dirt door Open.png
+resources/blocks/dirt door.png
 resources/entities/Cow.png
 resources/entities/Pig.png
 resources/entities/Sheep.png
@@ -179,6 +181,7 @@ resources/gdx/default.png
 resources/gdx/font-export.fnt
 resources/gdx/font-over-export.fnt
 resources/gdx/font-pressed-export.fnt
+resources/gdx/font-title-export.fnt
 resources/player/player.png
 resources/structures/Flower Field.obstructure
 resources/structures/Grass.obstructure

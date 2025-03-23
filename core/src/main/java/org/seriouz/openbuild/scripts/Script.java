@@ -27,6 +27,7 @@ import org.seriouz.openbuild.scripts.tables.FileSystem;
 import org.seriouz.openbuild.scripts.tables.StateCycleTable;
 import org.seriouz.openbuild.scripts.tables.TimerTable;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,6 +50,9 @@ public class Script {
             this.bindMethods();
             this.globals.load(this.contents).call();
         } catch (IOException e) {
+            if (new File(path).exists() && new File(path).isDirectory()){
+                return;
+            }
             Logger.info("Couldn't read script: " + path);
         }
     }

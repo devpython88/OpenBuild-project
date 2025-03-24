@@ -62,6 +62,7 @@ public class Script {
         this.globals.set("isKeyHeld", new InputFunctions.GetKeyHeld());
         this.globals.set("isKeyPressed", new InputFunctions.GetKeyPressed());
         this.globals.set("playSound", MiscFunctions.playSound(builder.soundManager));
+        this.globals.set("randomVal", MiscFunctions.randomVal());
 
         // tables
 

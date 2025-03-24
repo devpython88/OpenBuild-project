@@ -12,6 +12,7 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.ZeroArgFunction;
 import org.seriouz.openbuild.Block;
+import org.seriouz.openbuild.managers.BlockPathManager;
 import org.seriouz.openbuild.utilities.Logger;
 
 public class GetFunctions {
@@ -42,6 +43,19 @@ public class GetFunctions {
         Block block;
 
         public GetImageName(Block block) {
+            this.block = block;
+        }
+
+        public LuaValue call() {
+            return LuaValue.valueOf(BlockPathManager.getName(block.imageName));
+        }
+    }
+
+    public static class GetImagePath
+        extends ZeroArgFunction {
+        Block block;
+
+        public GetImagePath(Block block) {
             this.block = block;
         }
 

@@ -4,6 +4,7 @@ import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.ZeroArgFunction;
+import org.seriouz.openbuild.scripts.funcs.FunctionBuilder;
 import org.seriouz.openbuild.utilities.Logger;
 
 import java.util.List;
@@ -42,6 +43,11 @@ public class StateCycleTable extends LuaTable {
                 return NIL;
             }
         });
+
+        set("reset", FunctionBuilder.zeroArg(() -> {
+            index = 0;
+            return NIL;
+        }));
 
         set("setLoop", new OneArgFunction() {
             @Override

@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -495,14 +496,61 @@ public class GameScreen
         this.aDialogShown = true;
         Dialog dialog = new Dialog("Select Block", this.mainSkin){@Override protected void result(Object object) { aDialogShown = false; }};
 
+        TextField searchBar = new TextField("", mainSkin);
+
         /* SELECT BOX TABLE */
-        Table selectBlockTable = new Table();
+        Table selectBlockTable = new Table(mainSkin);
+        selectBlockTable.setBackground("round-gray");
 
         int MAX_COLUMN = 4;
-        int i = 0;
+        List<String> paths = blockManager.getBlockPathManager().getPathsSafe();
 
             // Load block images
-        for (String path : blockManager.getBlockPathManager().getPathsSafe()){
+
+        loadImagesIntoSelectBox(paths, dialog, MAX_COLUMN, selectBlockTable);
+
+        selectBlockTable.pack();
+
+        ScrollPane selectTableScroll = new ScrollPane(selectBlockTable);
+
+        selectTableScroll.setScrollingDisabled(true, false);
+        selectTableScroll.setFadeScrollBars(false);
+
+        /* *********************************** */
+
+
+        searchBar.addListener(new InputListener(){
+            @Override
+            public boolean keyTyped(InputEvent event, char character) {
+                String t = searchBar.getText();
+
+                List<String> pathsNew = new ArrayList<>();
+
+                for (String path : paths){
+                    if (path.toLowerCase().contains(t.toLowerCase())){
+                        pathsNew.add(path);
+                    }
+                }
+
+                selectBlockTable.clear();
+                loadImagesIntoSelectBox(pathsNew, dialog, MAX_COLUMN, selectBlockTable);
+                return true;
+            }
+        });
+
+
+        dialog.setSize(400, 300);
+        dialog.getContentTable().add(searchBar).width(300);
+        dialog.getContentTable().row();
+        dialog.getContentTable().add(selectTableScroll).size(300, 200);
+        dialog.button("Cancel", false);
+
+        dialog.show(this.stage);
+    }
+
+    private void loadImagesIntoSelectBox(List<String> paths, Dialog dialog, int MAX_COLUMN, Table selectBlockTable) {
+        int i = 0;
+        for (String path : paths){
             Image image = new Image(new TextureRegion(blockManager.getBlockPathManager().get(path), 16, 16));
             image.setSize(48, 48);
             image.setScaling(Scaling.fit);
@@ -524,22 +572,6 @@ public class GameScreen
             selectBlockTable.add(image).pad(10).size(48, 48);
             i++;
         }
-
-        selectBlockTable.pack();
-
-        ScrollPane selectTableScroll = new ScrollPane(selectBlockTable);
-
-        selectTableScroll.setScrollingDisabled(true, false);
-        selectTableScroll.setFadeScrollBars(false);
-
-        /* *********************************** */
-
-
-        dialog.setSize(400, 300);
-        dialog.getContentTable().add(selectTableScroll).size(300, 200);
-        dialog.button("Cancel", false);
-
-        dialog.show(this.stage);
     }
 
     private void showMergeBlockDialog(){

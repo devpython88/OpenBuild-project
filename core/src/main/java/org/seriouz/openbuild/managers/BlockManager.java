@@ -14,10 +14,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
+
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import org.seriouz.openbuild.Block;
 import org.seriouz.openbuild.builders.BlockParameterBuilder;
-import org.seriouz.openbuild.managers.BlockPathManager;
-import org.seriouz.openbuild.managers.SoundManager;
 
 public class BlockManager {
     public List<Block> blocks = new ArrayList<Block>();
@@ -114,5 +116,18 @@ public class BlockManager {
     }
 
 
+    public boolean isBlockInRange(Circle range, String filter){
+        for (Block b : blocks){
+            if (Intersector.overlaps(range, new Rectangle(b.x, b.y, 16, 16)) &&
+                blockPathManager.getName(b.imageName).equals(filter)) return true;
+        }
+        return false;
+    }
 
+    public boolean isBlockInRange(Circle range, int radius){
+        for (Block b : blocks){
+            if (Intersector.overlaps(range, new Rectangle(b.x, b.y, 16, 16))) return true;
+        }
+        return false;
+    }
 }

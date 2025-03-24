@@ -21,7 +21,9 @@ data/saves/village house near spawn/blocks.json
 data/saves/village house near spawn/entities.json
 data/saves/village house near spawn/environment.json
 data/saves/village house near spawn/player.json
+data/scripts/GAME/CROPS.lua
 data/scripts/GAME/WINDOW.lua
+data/scripts/test-ui.lua
 hs_err_pid7568.log
 hs_err_pid8420.log
 resources/Chain.png
@@ -122,12 +124,14 @@ resources/UI/panel.png
 resources/audio/Cow moos.wav
 resources/audio/Day Ambience.mp3
 resources/audio/Dedris Core Falling Apart.wav
+resources/audio/Dig dirt.wav
 resources/audio/Door.wav
 resources/audio/Iron Door.wav
 resources/audio/Night Ambience.mp3
 resources/audio/Pig oinks 2.wav
 resources/audio/Pig oinks 3.wav
 resources/audio/Pig oinks.wav
+resources/audio/Seed pour.wav
 resources/audio/Sheep bahs.wav
 resources/audio/Tied Dynamites.wav
 resources/audio/Torch Blown.wav
@@ -143,8 +147,11 @@ resources/blocks/-Torch Lamp.png
 resources/blocks/Bed.png
 resources/blocks/Broken Moss Stone Bricks.png
 resources/blocks/Broken Stone Bricks.png
+resources/blocks/Chain.png
 resources/blocks/Chunky Web.png
 resources/blocks/Cut Wood.png
+resources/blocks/Decoration Computer.png
+resources/blocks/Decoration Tile.png
 resources/blocks/Dedris Flower.png
 resources/blocks/Door.png
 resources/blocks/Glass.png
@@ -155,7 +162,10 @@ resources/blocks/Lamp Pole.png
 resources/blocks/Leaves.png
 resources/blocks/Moss Stone Bricks.png
 resources/blocks/Oral Flower.png
+resources/blocks/Painted Blue.png
+resources/blocks/Painted Green.png
 resources/blocks/Painted Red.png
+resources/blocks/Painted Yellow.png
 resources/blocks/Pebbles.png
 resources/blocks/Plant.png
 resources/blocks/Soil Block.png
@@ -166,11 +176,13 @@ resources/blocks/Water.png
 resources/blocks/Window.png
 resources/blocks/Wood Log.png
 resources/blocks/_Door Open.png
+resources/blocks/_Dug up soil.png
 resources/blocks/_Iron Door Open.png
+resources/blocks/_Seeded soil full.png
+resources/blocks/_Seeded soil young.png
+resources/blocks/_Seeded soil.png
 resources/blocks/_Switch Toggled.png
 resources/blocks/_Window Open.png
-resources/blocks/_dirt door Open.png
-resources/blocks/dirt door.png
 resources/entities/Cow.png
 resources/entities/Pig.png
 resources/entities/Sheep.png

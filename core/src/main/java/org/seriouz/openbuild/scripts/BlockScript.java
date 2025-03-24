@@ -17,6 +17,7 @@ import org.seriouz.openbuild.Block;
 import org.seriouz.openbuild.builders.ScriptBuilder;
 import org.seriouz.openbuild.managers.BlockManager;
 import org.seriouz.openbuild.scripts.funcs.GetFunctions;
+import org.seriouz.openbuild.scripts.funcs.MiscFunctions;
 import org.seriouz.openbuild.scripts.funcs.SetFunctions;
 import org.seriouz.openbuild.scripts.tables.TimerTable;
 
@@ -71,6 +72,8 @@ public class BlockScript
         });
         this.globals.set("getCollision", new GetFunctions.GetCollision(this.host));
 
+        // MISC
+        this.globals.set("isBlockNearby", MiscFunctions.isBlockNearby(blockManager, host));
 
         this.globals.set("setImageName", new SetFunctions.SetImageName(this.host, blockManager));
         this.globals.set("setCollision", new SetFunctions.SetCollision(this.host));
